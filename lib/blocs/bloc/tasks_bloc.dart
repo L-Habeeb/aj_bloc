@@ -8,6 +8,7 @@ import '../bloc_exports.dart';
 part 'tasks_event.dart';
 part 'tasks_state.dart';
 
+// class TasksBloc extends Bloc<TasksEvent, TasksState> {
 class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
   TasksBloc() : super(const TasksState()) {
     on<AddTaskEvent>(_onAddTaskEvent);
@@ -37,13 +38,42 @@ class TasksBloc extends HydratedBloc<TasksEvent, TasksState> {
     emit(TasksState(allTasks: allTask));
   }
 
+
+  @override
+  String get storagePrefix => 'TasksBloc';
+
   @override
   TasksState? fromJson(Map<String, dynamic> json) {
-    return TasksState.fromMap(json);
+    try {
+      return TasksState.fromMap(json);
+    } catch (e) {
+      // Return null if deserialization fails - bloc will use initial state
+      print('Error deserializing TasksState: $e');
+      return null;
+    }
   }
 
   @override
   Map<String, dynamic>? toJson(TasksState state) {
-    return state.toMap();
+    try {
+      return state.toMap();
+    } catch (e) {
+      // Return null if serialization fails - state won't be persisted
+      print('Error serializing TasksState: $e');
+      return null;
+    }
   }
+
+
+
+  // @override
+  // TasksState? fromJson(Map<String, dynamic> json) {
+  //   return TasksState.fromMap(json);
+  // }
+
+
+  // @override
+  // Map<String, dynamic>? toJson(TasksState state) {
+  //   return state.toMap();
+  // }
 }

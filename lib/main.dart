@@ -1,28 +1,26 @@
-import 'dart:async';
-// import 'dart:async' as HydratedBlocOverrides;
-
 import 'package:aj_todo/blocs/bloc_exports.dart';
-import 'package:aj_todo/models/task.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:hydrated_bloc/hydrated_bloc.dart';
-// import 'package:flutter/foundation.dart' show kIsWeb;
-
-
 
 import 'screens/tasks_screen.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   
+  // Initialize BlocObserver for debugging
+  Bloc.observer = MyBlocObserver();
+  
+  // Setup HydratedBloc storage - correct syntax for hydrated_bloc 10.x
   HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: await getApplicationDocumentsDirectory(),
+    storageDirectory: kIsWeb
+        ? HydratedStorageDirectory.web
+        : HydratedStorageDirectory((await getApplicationDocumentsDirectory()).path),
   );
   
   runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -35,7 +33,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Tasks App',
         theme: ThemeData(primarySwatch: Colors.blue),
-        home: TasksScreen(),
+        home: const TasksScreen(),
       ),
     );
   }
