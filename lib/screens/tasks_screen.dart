@@ -2,11 +2,14 @@
 import 'package:aj_todo/blocs/bloc_exports.dart';
 import 'package:aj_todo/models/task.dart';
 import 'package:aj_todo/screens/add_task_screen.dart';
+import 'package:aj_todo/screens/my_drawer.dart';
 import 'package:aj_todo/widgets/task_list.dart';
 import 'package:flutter/material.dart';
 
 class TasksScreen extends StatefulWidget {
   const TasksScreen({super.key});
+
+  static const id = 'tasks_screen';
 
   @override
   State<TasksScreen> createState() => _TasksScreenState();
@@ -34,6 +37,7 @@ class _TasksScreenState extends State<TasksScreen> {
         List<Task> tasksList = state.allTasks;
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.lightBlue,
             title: const Text('Tasks App'),
             actions: [
               IconButton(
@@ -44,10 +48,13 @@ class _TasksScreenState extends State<TasksScreen> {
               ),
             ],
           ),
+          drawer: MyDrawer(),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Center(child: const Chip(label: Text('Tasks:'))),
+              Center(
+                child: Chip(label: Text('Tasks: ${state.allTasks.length}')),
+              ),
               TasksList(tasksList: tasksList),
             ],
           ),

@@ -17,6 +17,15 @@ class AddTaskEvent extends TasksEvent {
 }
 
 
+class RemoveTaskEvent extends TasksEvent {
+  final Task task;
+  
+  const RemoveTaskEvent({
+    required this.task,
+  });
+}
+
+
 class UpdateTaskEvent extends TasksEvent {
   final Task task;
   
