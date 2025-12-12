@@ -1,4 +1,3 @@
-import 'package:aj_todo/blocs/task_bloc/tasks_bloc.dart';
 import 'package:aj_todo/screens/my_drawer.dart';
 import 'package:aj_todo/widgets/task_list.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +15,7 @@ class RecycleBin extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.lightBlue,
-            title: const Text('Tasks App'),
+            title: const Text('Recycle App'),
             actions: [
               IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
             ],

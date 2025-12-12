@@ -1,12 +1,10 @@
 import 'package:aj_todo/blocs/bloc_exports.dart';
 import 'package:aj_todo/screens/recycle_bin.dart';
-import 'package:aj_todo/screens/tasks_screen.dart';
+import 'package:aj_todo/screens/tabs_screens.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
-
-  // bool switchValue = false;
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +23,11 @@ class MyDrawer extends StatelessWidget {
                 return GestureDetector(
                   onTap: () => Navigator.of(
                     context,
-                  ).pushReplacementNamed(TasksScreen.id),
+                  ).pushReplacementNamed(TabsScreens.id),
                   child: ListTile(
                     leading: const Icon(Icons.folder_special),
                     title: const Text('My Tasks'),
-                    trailing: Text('Tasks: ${state.allTasks.length}'),
+                    trailing: Text('Tasks: ${state.pendingTask.length}'),
                   ),
                 );
               },
